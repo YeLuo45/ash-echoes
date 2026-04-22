@@ -110,7 +110,7 @@ export class Level {
     }
 
     // Player bullets vs enemies
-    for (const p of this.enemyManager.projectiles) {
+    for (const p of this.enemyManager.projectiles.getProjectiles()) {
       if (p.owner !== 'player') continue;
       for (const e of this.enemyManager.enemies) {
         const dx = p.x - e.x;
@@ -124,7 +124,7 @@ export class Level {
     }
 
     // Enemy bullets vs player
-    for (const p of this.enemyManager.projectiles) {
+    for (const p of this.enemyManager.projectiles.getProjectiles()) {
       if (p.owner !== 'enemy') continue;
       const dx = p.x - (this.player.x + this.player.width / 2);
       const dy = p.y - (this.player.y + this.player.height / 2);
