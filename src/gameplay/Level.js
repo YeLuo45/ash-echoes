@@ -1,3 +1,5 @@
+import { ENEMY_TEMPLATES } from './enemies.js';
+
 export class Level {
   constructor(enemyManager, player) {
     this.enemyManager = enemyManager;
@@ -8,9 +10,11 @@ export class Level {
     this.platformColor = '#1a1a2e';
     this.bgColor1 = '#0a0a0f';
     this.bgColor2 = '#12121a';
+    this.accentColor = '#ff6b35';
     this.resonanceShrines = [];
     this.collectibles = [];
     this.portal = null;
+    this.theme = 'ruins';
   }
 
   init() {
@@ -30,14 +34,12 @@ export class Level {
       { x: 2200, y: 400, w: 180, h: 20, type: 'platform' },
     ];
 
-    // 回响祭坛 (Resonance Shrines / 存档点)
     this.resonanceShrines = [
       { x: 150, y: 460, w: 40, h: 20, active: false },
       { x: 1100, y: 280, w: 40, h: 20, active: true },
       { x: 1750, y: 260, w: 40, h: 20, active: false },
     ];
 
-    // 回响碎片 collectibles
     this.collectibles = [
       { x: 270, y: 360, collected: false },
       { x: 500, y: 300, collected: false },
@@ -51,10 +53,53 @@ export class Level {
       { x: 2280, y: 380, collected: false },
     ];
 
-    // Portal to next area
     this.portal = { x: 2280, y: 380, w: 50, h: 100, active: false };
 
     this._initEnemies();
+  }
+
+  // V2: Initialize from chapter data
+  initFromData(levelData, chapterData) {
+    this.width = levelData.width || 2400;
+    this.height = levelData.height || 800;
+    this.platforms = levelData.platforms || [];
+    this.resonanceShrines = (levelData.shrines || []).map(s => ({ ...s }));
+    this.collectibles = (levelData.collectibles || []).map(c => ({ ...c, collected: false }));
+    this.portal = levelData.portal ? { ...levelData.portal, active: false } : null;
+    this.theme = chapterData.theme || 'ruins';
+    this.bgColor1 = chapterData.bgColor1 || '#0a0a0f';
+    this.bgColor2 = chapterData.bgColor2 || '#12121a';
+    this.accentColor = chapterData.accentColor || '#ff6b35';
+
+    // Spawn enemies
+    this.enemyManager.enemies = [];
+    for (const e of levelData.enemies) {
+      const template = ENEMY_TEMPLATES[e.type] || ENEMY_TEMPLATES.scavenger;
+      this.enemyManager.spawn(e.type, e.x, e.y);
+    }
+  }
+
+  // V2: Initialize from roguelite room
+  initFromRogueliteRoom(room) {
+    this.width = room.width || 2400;
+    this.height = room.height || 800;
+    this.platforms = room.platforms || [];
+    this.collectibles = (room.collectibles || []).map(c => ({ ...c, collected: false }));
+    this.portal = null;
+    this.theme = 'roguelite';
+    this.bgColor1 = '#0a0a1a';
+    this.bgColor2 = '#0a0a2a';
+    this.accentColor = '#9b59b6';
+
+    // Spawn enemies with scaled HP
+    this.enemyManager.enemies = [];
+    for (const e of room.enemies) {
+      const enemy = this.enemyManager.spawn(e.type, e.x, e.y);
+      if (e.hp && enemy) {
+        enemy.hp = e.hp;
+        enemy.maxHp = e.hp;
+      }
+    }
   }
 
   _initEnemies() {
@@ -79,20 +124,20 @@ export class Level {
   }
 
   update(dt) {
-    // Update enemy targets
     for (const e of this.enemyManager.enemies) {
       e.setTarget(this.player.x, this.player.y);
     }
 
-    // Collision detection
     this._checkCollisions();
-
-    // Collectibles
     this._checkCollectibles();
 
-    // Portal check
-    if (this.portal.active) {
+    if (this.portal?.active) {
       this._checkPortal();
+    }
+
+    // Roguelite room complete
+    if (this.enemyManager.getCount() === 0 && !this.portal?.active && !this._isRogueliteEvent) {
+      // Nothing to do - waiting for room advance
     }
   }
 
@@ -160,7 +205,7 @@ export class Level {
     }
 
     // Check if all regular enemies defeated → activate portal
-    if (this.enemyManager.getCount() === 0 && !this.portal.active) {
+    if (this.enemyManager.getCount() === 0 && !this.portal?.active && this.portal) {
       this.portal.active = true;
     }
   }
@@ -171,39 +216,58 @@ export class Level {
         this.player.x < p.x + p.w &&
         this.player.y + this.player.height > p.y &&
         this.player.y < p.y + p.h) {
-      // Next level / victory
-      this._showVictory();
+      // Handled by GameV2._onLevelComplete
     }
   }
 
   _showVictory() {
-    // Placeholder - boss defeated → show victory screen
+    // Placeholder
   }
 
   renderBackground(ctx) {
-    // Parallax sky gradient
     const grad = ctx.createLinearGradient(0, 0, 0, this.height);
-    grad.addColorStop(0, '#0a0a0f');
-    grad.addColorStop(1, '#15151f');
+    grad.addColorStop(0, this.bgColor1);
+    grad.addColorStop(1, this.bgColor2);
     ctx.fillStyle = grad;
-    ctx.fillRect(this.x || 0, this.y || 0, this.width, this.height);
+    ctx.fillRect(0, 0, this.width, this.height);
 
-    // Background ruins (silhouettes)
+    // Background buildings/silhouettes
     ctx.fillStyle = '#0d0d15';
-    // Distant buildings
-    ctx.fillRect(100, 300, 60, 180);
-    ctx.fillRect(200, 350, 40, 130);
-    ctx.fillRect(350, 280, 80, 200);
-    ctx.fillRect(500, 320, 50, 160);
-    ctx.fillRect(650, 250, 70, 230);
-    ctx.fillRect(800, 300, 55, 180);
-    ctx.fillRect(950, 270, 65, 210);
-    ctx.fillRect(1100, 310, 45, 170);
-    ctx.fillRect(1300, 240, 90, 240);
-    ctx.fillRect(1500, 290, 60, 190);
-    ctx.fillRect(1700, 260, 75, 220);
-    ctx.fillRect(1900, 300, 50, 180);
-    ctx.fillRect(2100, 280, 70, 200);
+    const positions = [100, 200, 350, 500, 650, 800, 950, 1100, 1300, 1500, 1700, 1900, 2100];
+    const heights = [180, 130, 200, 160, 230, 180, 210, 170, 240, 190, 220, 180, 200];
+    const widths = [60, 40, 80, 50, 70, 55, 65, 45, 90, 60, 75, 50, 70];
+
+    for (let i = 0; i < positions.length; i++) {
+      ctx.fillRect(positions[i], this.height - heights[i], widths[i], heights[i]);
+    }
+
+    // Theme-specific overlays
+    if (this.theme === 'underwater') {
+      // Water caustics effect
+      ctx.fillStyle = 'rgba(0, 100, 150, 0.05)';
+      for (let i = 0; i < 5; i++) {
+        const x = (performance.now() * 0.02 + i * 200) % (this.width + 400) - 200;
+        ctx.beginPath();
+        ctx.ellipse(x, 200, 100, 40, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else if (this.theme === 'spacetime') {
+      // Fractured spacetime - floating debris
+      ctx.fillStyle = 'rgba(100, 50, 150, 0.1)';
+      for (let i = 0; i < 8; i++) {
+        const x = (i * 300 + performance.now() * 0.01) % this.width;
+        const y = 100 + i * 50;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(performance.now() * 0.001 + i);
+        ctx.fillRect(-20, -20, 40, 40);
+        ctx.restore();
+      }
+    } else if (this.theme === 'roguelite') {
+      // Roguelite - purple void
+      ctx.fillStyle = 'rgba(80, 20, 120, 0.08)';
+      ctx.fillRect(0, 0, this.width, this.height);
+    }
   }
 
   render(ctx) {
@@ -212,23 +276,22 @@ export class Level {
       if (plat.type === 'ground') {
         ctx.fillStyle = '#1a1a2e';
         ctx.fillRect(plat.x, plat.y, plat.w, plat.h);
-        ctx.fillStyle = '#2a2a4e';
+        ctx.fillStyle = this.accentColor;
         ctx.fillRect(plat.x, plat.y, plat.w, 4);
       } else {
         ctx.fillStyle = '#1a1a2e';
         ctx.fillRect(plat.x, plat.y, plat.w, plat.h);
-        ctx.fillStyle = '#ff6b35';
+        ctx.fillStyle = this.accentColor;
         ctx.fillRect(plat.x, plat.y, plat.w, 2);
       }
     }
 
     // Resonance Shrines
     for (const s of this.resonanceShrines) {
-      ctx.fillStyle = s.active ? '#00d4ff' : '#3a3a5e';
+      ctx.fillStyle = s.active ? this.accentColor : '#3a3a5e';
       ctx.fillRect(s.x, s.y, s.w, s.h);
-      // Glow
       if (s.active) {
-        ctx.shadowColor = '#00d4ff';
+        ctx.shadowColor = this.accentColor;
         ctx.shadowBlur = 15;
         ctx.fillRect(s.x + 5, s.y - 10, s.w - 10, 10);
         ctx.shadowBlur = 0;
@@ -239,8 +302,8 @@ export class Level {
     for (const c of this.collectibles) {
       if (c.collected) continue;
       const pulse = Math.sin(performance.now() * 0.005) * 3;
-      ctx.fillStyle = '#7b2cbf';
-      ctx.shadowColor = '#00d4ff';
+      ctx.fillStyle = this.accentColor;
+      ctx.shadowColor = this.accentColor;
       ctx.shadowBlur = 10 + pulse;
       ctx.beginPath();
       ctx.arc(c.x, c.y, 8, 0, Math.PI * 2);
@@ -249,10 +312,10 @@ export class Level {
     }
 
     // Portal
-    if (this.portal.active) {
+    if (this.portal?.active) {
       const p = this.portal;
-      ctx.fillStyle = '#00d4ff';
-      ctx.shadowColor = '#00d4ff';
+      ctx.fillStyle = this.accentColor;
+      ctx.shadowColor = this.accentColor;
       ctx.shadowBlur = 20;
       ctx.fillRect(p.x, p.y, p.w, p.h);
       ctx.shadowBlur = 0;
