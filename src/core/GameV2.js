@@ -15,8 +15,13 @@ import { PermanentUnlockManager } from '../roguelite/permanentUnlocks.js';
 import { generateRooms } from '../roguelite/roomGenerator.js';
 import { CHAPTER1, CHAPTER2, CHAPTER3, ALL_CHAPTERS } from '../story/chapters.js';
 import { ENEMY_TEMPLATES } from '../gameplay/enemies.js';
-import { WEAPONS } from '../gameplay/weapons.js';
+import { WEAPONS, getWeaponStats } from '../gameplay/weapons.js';
 import { PASSIVE_SKILLS, applyPassiveEffect } from '../gameplay/passives.js';
+import { CHARACTERS, isCharacterUnlocked, getCharacterUnlockOrder } from '../gameplay/characters.js';
+import { CharacterSelect } from '../ui/characterSelect.js';
+import { SkillPointManager, SkillTreeManager, SKILL_TREES } from '../gameplay/skillTree.js';
+import { SkillTreeUI } from '../ui/skillTree.js';
+import { ChallengeManager } from '../challenge/ChallengeManager.js';
 
 export class GameV2 {
   constructor(canvas, ctx) {
@@ -48,6 +53,20 @@ export class GameV2 {
     this.currentChapter = 1;
     this.currentLevelIndex = 0;
 
+    // Character system
+    this.selectedCharacter = 'even';
+    this.characterSelect = new CharacterSelect(this.saveManager);
+    this.skillPointManager = new SkillPointManager();
+    this.skillTreeManager = new SkillTreeManager(this.skillPointManager);
+    this.skillTreeUI = null;
+    this.skillTreeOpen = false;
+
+    // Challenge modes
+    this.challengeManager = new ChallengeManager(this);
+
+    // Character selection: show character select before classic mode
+    this._showCharacterSelectOnClassic = true;
+
     // Roguelite state
     this.roguelite = {
       rooms: [],
@@ -73,6 +92,21 @@ export class GameV2 {
 
   _onKeyDown(e) {
     const key = e.key.toLowerCase();
+
+    // T = open skill tree (in classic mode)
+    if (key === 't' && this.mode === 'classic' && this.running && !this.skillTreeOpen) {
+      this._toggleSkillTree();
+      return;
+    }
+
+    // Close skill tree on ESC
+    if (key === 'escape' && this.skillTreeOpen) {
+      this._toggleSkillTree();
+      return;
+    }
+
+    // If skill tree is open, don't process other keys
+    if (this.skillTreeOpen) return;
 
     // Q = weapon switch
     if (key === 'q' && this.running && this.mode === 'classic') {
@@ -175,6 +209,16 @@ export class GameV2 {
     ctx.fillStyle = '#666';
     ctx.fillText('每日挑战使用当日seed，排行榜可复现', this.width / 2, 420);
 
+    // Hardcore challenge button
+    ctx.fillStyle = '#1a1a2e';
+    ctx.fillRect(100, 435, 760, 55);
+    ctx.strokeStyle = '#ff4444';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(100, 435, 760, 55);
+    ctx.fillStyle = '#ff4444';
+    ctx.font = 'bold 14px Courier New';
+    ctx.fillText('⚔ 硬核挑战模式 — BossRush | 竞速 | 受苦 | 无伤', this.width / 2, 468);
+
     // Permanent unlocks status
     const unlocks = this.permanentUnlocks.unlocks;
     ctx.fillStyle = '#555';
@@ -202,6 +246,11 @@ export class GameV2 {
       if (mx >= 520 && mx <= 860 && my >= 160 && my <= 360) {
         this.canvas.removeEventListener('click', handler);
         this._showRogueliteSubMenu();
+      }
+      // Hardcore challenge
+      if (mx >= 100 && mx <= 860 && my >= 435 && my <= 490) {
+        this.canvas.removeEventListener('click', handler);
+        this.challengeManager.showChallengeHall();
       }
     };
     this.canvas.addEventListener('click', handler);
@@ -357,12 +406,50 @@ export class GameV2 {
 
   _startClassicMode() {
     this.mode = 'classic';
+
+    // Load character-specific data (skill tree, etc.)
+    this._loadCharacterData();
+
+    // Show character select before starting
+    this._showCharacterSelect();
+  }
+
+  _loadCharacterData() {
+    this.skillPointManager.loadFromSave(this.selectedCharacter, this.saveManager.loadCharacterData(this.selectedCharacter));
+  }
+
+  _saveCharacterData() {
+    this.saveManager.saveCharacterData(this.selectedCharacter, {
+      skillTree: this.skillPointManager.toSave(),
+    });
+  }
+
+  _showCharacterSelect() {
+    const ctx = this.ctx;
+    ctx.fillStyle = 'rgba(10, 10, 20, 0.97)';
+    ctx.fillRect(0, 0, this.width, this.height);
+
+    this.characterSelect.render(ctx, this.canvas, (charId) => {
+      this.selectedCharacter = charId;
+      this._loadCharacterData();
+      this._proceedToChapterSelect();
+    });
+
+    // ESC to go back to menu
+    const escHandler = (e) => {
+      if (e.key === 'Escape') {
+        document.removeEventListener('keydown', escHandler);
+        this.showModeSelect();
+      }
+    };
+    document.addEventListener('keydown', escHandler);
+  }
+
+  _proceedToChapterSelect() {
     const progress = this.saveManager.loadClassicProgress();
     if (progress?.chapters?.[1]?.lastLevel > 0) {
-      // Has progress - show chapter select
       this._showChapterSelect();
     } else {
-      // Fresh start
       this.currentChapter = 1;
       this.currentLevelIndex = 0;
       this._loadChapter(1);
@@ -473,19 +560,44 @@ export class GameV2 {
   }
 
   _initPlayerAndStart() {
+    const char = CHARACTERS[this.selectedCharacter];
     this.player.init(100, 300);
-    this.weaponSwitch.setSlots('pistol', null);
+
+    // Apply character base stats
+    this.player.maxHp = char.stats.maxHp;
+    this.player.hp = char.stats.hp;
+    this.player.maxResonance = char.stats.resonance;
+    this.player.resonance = 0;
+    this.player.speed = char.stats.speed;
+
+    // Get initial weapon for character
+    const initialWeapon = char.initialWeapon;
+    const weaponUpgradeLevel = this.saveManager.loadWeaponUpgrade(this.selectedCharacter, initialWeapon);
+    const weaponStats = getWeaponStats(initialWeapon, weaponUpgradeLevel);
+
+    this.weaponSwitch.setSlots(initialWeapon, null);
 
     // Apply unlocked weapons
     const progress = this.saveManager.loadClassicProgress();
     if (progress?.unlockedWeapons?.includes('echo_blade')) {
-      this.weaponSwitch.setSlots('pistol', 'echo_blade');
+      const echoBladeLevel = this.saveManager.loadWeaponUpgrade(this.selectedCharacter, 'echo_blade');
+      this.weaponSwitch.setSlots(initialWeapon, 'echo_blade');
     }
+
+    // Apply skill tree effects
+    this.skillTreeManager.applyToPlayer(this.selectedCharacter, this.player);
 
     // Apply unlocked passives
     if (progress?.unlockedPassives?.length > 0) {
-      // First passive is auto-equipped for classic
       applyPassiveEffect(progress.unlockedPassives[0], this.player);
+    }
+
+    // Award skill points if new chapter completed
+    const skillPointsEarned = char.skillPointsPerChapter || 2;
+    const currentEarned = this.skillPointManager.getTotalEarned(this.selectedCharacter);
+    const expectedEarned = (this.currentChapter - 1) * skillPointsEarned;
+    if (currentEarned < expectedEarned) {
+      this.skillPointManager.addPoints(this.selectedCharacter, expectedEarned - currentEarned);
     }
 
     this.running = true;
@@ -755,13 +867,50 @@ export class GameV2 {
 
     if (this.player.isDead) {
       this.stop();
-      this._onDeath();
+      // Route death based on mode
+      if (this.mode === 'bossrush' || this.mode === 'speedrun' ||
+          this.mode === 'suffering' || this.mode === 'nohit') {
+        this.challengeManager.onChallengeDeath();
+      } else {
+        this._onDeath();
+      }
     }
 
     // Check level complete (classic)
     if (this.mode === 'classic' && this.enemies.getCount() === 0 && this.level.portal?.active) {
       this._onLevelComplete();
     }
+  }
+
+  _toggleSkillTree() {
+    this.skillTreeOpen = !this.skillTreeOpen;
+    if (this.skillTreeOpen) {
+      this._renderSkillTree();
+    }
+  }
+
+  _renderSkillTree() {
+    const ctx = this.ctx;
+    ctx.fillStyle = 'rgba(10, 10, 20, 0.97)';
+    ctx.fillRect(0, 0, this.width, this.height);
+
+    const char = CHARACTERS[this.selectedCharacter];
+    this.skillTreeUI = new SkillTreeUI(this.skillTreeManager, this.selectedCharacter);
+    this.skillTreeUI.setSkillPoints(this.skillPointManager.getPoints(this.selectedCharacter));
+
+    this.skillTreeUI.render(ctx, this.canvas,
+      () => {
+        this.skillTreeOpen = false;
+      },
+      (skillId) => {
+        // Try to upgrade skill
+        if (this.skillTreeManager.tryUpgradeSkill(this.selectedCharacter, skillId)) {
+          this._saveCharacterData();
+          this.skillTreeUI.setSkillPoints(this.skillPointManager.getPoints(this.selectedCharacter));
+          this._renderSkillTree();
+        }
+      }
+    );
   }
 
   _onLevelComplete() {
@@ -859,6 +1008,11 @@ export class GameV2 {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, this.width, this.height);
 
+    // If skill tree is open, render the skill tree overlay
+    if (this.skillTreeOpen) {
+      return; // Skill tree UI handles its own rendering
+    }
+
     ctx.save();
     const cam = this.camera;
     ctx.translate(-cam.x, -cam.y);
@@ -877,6 +1031,11 @@ export class GameV2 {
     // Weapon switch UI (classic mode)
     if (this.mode === 'classic') {
       this.weaponSwitch.render(ctx);
+      // Show skill tree hint
+      const hint = document.getElementById('skill-tree-hint');
+      if (hint) {
+        hint.style.opacity = this.running ? '1' : '0';
+      }
     }
 
     // Roguelite HUD

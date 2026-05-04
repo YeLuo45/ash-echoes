@@ -137,8 +137,19 @@
       text-align: right;
       pointer-events: none;
     }
+    #skill-tree-hint {
+      position: absolute;
+      top: 50px;
+      right: 16px;
+      color: #00d4ff;
+      font-size: 12px;
+      text-align: right;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
   </style>
-  <script type="module" crossorigin src="./assets/index-DReluBph.js"></script>
+  <script type="module" crossorigin src="./assets/index-C24ff_fR.js"></script>
 </head>
 <body>
   <div id="game-container">
@@ -155,7 +166,8 @@
     </div>
     <div id="resonance-indicator"></div>
     <div id="corruption-overlay"></div>
-    <div id="controls-hint">WASD/方向键 移动 | 空格 闪避 | J 射击 | K 技能</div>
+    <div id="skill-tree-hint">[T] 技能树</div>
+    <div id="controls-hint">WASD/方向键 移动 | 空格 闪避 | J 射击 | K 技能 | Q 切换武器</div>
     <div id="start-screen">
       <div class="screen-title">残响纪元</div>
       <div class="screen-subtitle">ASH ECHOES — 2.5D 侧视角射击</div>

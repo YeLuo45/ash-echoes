@@ -5,6 +5,74 @@ export class SaveManager {
   constructor() {
     this.CLASSIC_PREFIX = 'ash_classic_';
     this.ROGUELITE_PREFIX = 'ash_roguelite_';
+    // Character-specific save keys
+    this.CHARACTER_PREFIXES = {
+      even: 'ash_even_classic_',
+      ren: 'ash_ren_classic_',
+      rong: 'ash_rong_classic_',
+    };
+  }
+
+  // Get character-specific save key
+  _getCharKey(charId, suffix) {
+    const prefix = this.CHARACTER_PREFIXES[charId] || this.CLASSIC_PREFIX;
+    return `${prefix}${suffix}`;
+  }
+
+  // Save character-specific progress (skill tree, story fragments, etc.)
+  saveCharacterData(charId, data) {
+    const key = this._getCharKey(charId, 'data');
+    localStorage.setItem(key, JSON.stringify({
+      ...data,
+      timestamp: Date.now(),
+    }));
+  }
+
+  // Load character-specific data
+  loadCharacterData(charId) {
+    const key = this._getCharKey(charId, 'data');
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : null;
+  }
+
+  // Save skill tree for character
+  saveSkillTree(charId, skillTreeData) {
+    const existing = this.loadCharacterData(charId) || {};
+    existing.skillTree = skillTreeData;
+    this.saveCharacterData(charId, existing);
+  }
+
+  // Load skill tree for character
+  loadSkillTree(charId) {
+    const data = this.loadCharacterData(charId);
+    return data?.skillTree || null;
+  }
+
+  // Save story fragments for character
+  saveStoryFragments(charId, fragments) {
+    const existing = this.loadCharacterData(charId) || {};
+    existing.storyFragments = fragments;
+    this.saveCharacterData(charId, existing);
+  }
+
+  // Load story fragments for character
+  loadStoryFragments(charId) {
+    const data = this.loadCharacterData(charId);
+    return data?.storyFragments || [];
+  }
+
+  // Save weapon upgrade level for character
+  saveWeaponUpgrade(charId, weaponId, upgradeLevel) {
+    const existing = this.loadCharacterData(charId) || {};
+    if (!existing.weaponUpgrades) existing.weaponUpgrades = {};
+    existing.weaponUpgrades[weaponId] = upgradeLevel;
+    this.saveCharacterData(charId, existing);
+  }
+
+  // Load weapon upgrade level for character
+  loadWeaponUpgrade(charId, weaponId) {
+    const data = this.loadCharacterData(charId);
+    return data?.weaponUpgrades?.[weaponId] || 1; // Default to level 1
   }
 
   // Classic mode saves
