@@ -267,6 +267,81 @@ export class Level {
       // Roguelite - purple void
       ctx.fillStyle = 'rgba(80, 20, 120, 0.08)';
       ctx.fillRect(0, 0, this.width, this.height);
+    } else if (this.theme === 'ruins_city') {
+      // Industrial ruins - dark red/orange smoke stacks
+      ctx.fillStyle = 'rgba(40, 10, 5, 0.15)';
+      ctx.fillRect(0, 0, this.width, this.height);
+      // Smoke stacks silhouettes
+      ctx.fillStyle = '#1a0808';
+      const stackPos = [150, 400, 700, 1000, 1400, 1800, 2100];
+      const stackH = [220, 180, 250, 200, 240, 190, 210];
+      const stackW = [30, 25, 35, 28, 32, 26, 30];
+      for (let i = 0; i < stackPos.length; i++) {
+        ctx.fillRect(stackPos[i], this.height - stackH[i], stackW[i], stackH[i]);
+        // Chimney top
+        ctx.fillRect(stackPos[i] - 5, this.height - stackH[i] - 8, stackW[i] + 10, 12);
+      }
+      // Smoke particles
+      ctx.fillStyle = 'rgba(60, 20, 10, 0.06)';
+      for (let i = 0; i < 6; i++) {
+        const x = (i * 350 + performance.now() * 0.015) % this.width;
+        const y = 80 + i * 30;
+        ctx.beginPath();
+        ctx.ellipse(x, y, 60, 25, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else if (this.theme === 'underground_base') {
+      // Military underground base - neon grid lines
+      ctx.fillStyle = 'rgba(0, 20, 10, 0.15)';
+      ctx.fillRect(0, 0, this.width, this.height);
+      // Grid lines
+      ctx.strokeStyle = 'rgba(0, 255, 68, 0.06)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < this.width; x += 80) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, this.height);
+        ctx.stroke();
+      }
+      for (let y = 0; y < this.height; y += 80) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(this.width, y);
+        ctx.stroke();
+      }
+      // Warning stripes
+      ctx.fillStyle = 'rgba(0, 255, 68, 0.03)';
+      for (let i = 0; i < 8; i++) {
+        const x = (i * 300 + performance.now() * 0.01) % this.width;
+        ctx.fillRect(x, 0, 40, this.height);
+      }
+    } else if (this.theme === 'core_region') {
+      // Core region - pulsing void, magenta energy
+      const pulse = Math.sin(performance.now() * 0.002) * 0.03;
+      ctx.fillStyle = `rgba(30, 0, 40, ${0.12 + pulse})`;
+      ctx.fillRect(0, 0, this.width, this.height);
+      // Energy lines
+      ctx.strokeStyle = 'rgba(255, 0, 200, 0.08)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < 6; i++) {
+        const angle = (i / 6) * Math.PI * 2 + performance.now() * 0.0003;
+        ctx.beginPath();
+        ctx.moveTo(this.width / 2, this.height / 2);
+        ctx.lineTo(
+          this.width / 2 + Math.cos(angle) * 1200,
+          this.height / 2 + Math.sin(angle) * 600
+        );
+        ctx.stroke();
+      }
+      // Floating orbs
+      ctx.fillStyle = 'rgba(255, 0, 255, 0.05)';
+      for (let i = 0; i < 5; i++) {
+        const x = (i * 450 + performance.now() * 0.02) % this.width;
+        const y = 150 + Math.sin(performance.now() * 0.001 + i) * 80;
+        ctx.beginPath();
+        ctx.arc(x, y, 30, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
   }
 

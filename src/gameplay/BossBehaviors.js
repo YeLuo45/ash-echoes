@@ -592,6 +592,193 @@ export function applyCoreWillBehavior(enemy, game) {
 }
 
 /**
+ * Boss 4: 核心守护者 (Core Guardian) — Ch6-6
+ * Abilities: Energy Shield | Laser Sweep | Summon Drones
+ */
+export function applyCoreGuardianBehavior(enemy, game) {
+  enemy._bossPhase = 'idle';  // idle | shield | laser | summon
+  enemy._phaseTimer = 0;
+  enemy._actionTimer = 0;
+  enemy._laserAngle = 0;
+  enemy._shieldActive = false;
+  enemy._originalX = enemy.x;
+  enemy._originalY = enemy.y;
+  enemy._droneCooldown = 0;
+  enemy._laserActive = false;
+
+  const IDLE_DURATION = 2.5;
+  const LASER_DURATION = 2.0;
+  const SHIELD_DURATION = 3.0;
+  const SUMMON_COOLDOWN = 12.0;
+  const DRONE_COOLDOWN = 8.0;
+
+  enemy._bossUpdate = function(dt, game) {
+    this._phaseTimer += dt;
+    this._actionTimer += dt;
+    this._droneCooldown += dt;
+
+    const distToPlayer = Math.hypot(game.player.x - this.x, game.player.y - this.y);
+
+    if (this._bossPhase === 'idle') {
+      // Slow chase
+      if (distToPlayer > 80) {
+        const angle = Math.atan2(game.player.y - this.y, game.player.x - this.x);
+        this.vx = Math.cos(angle) * this.speed * 0.4;
+        this.vy = Math.sin(angle) * this.speed * 0.4;
+      } else {
+        this.vx *= 0.85;
+        this.vy *= 0.85;
+      }
+
+      if (this._phaseTimer >= IDLE_DURATION) {
+        this._phaseTimer = 0;
+        const roll = Math.random();
+        if (roll < 0.35) {
+          this._bossPhase = 'laser';
+        } else if (roll < 0.65) {
+          this._bossPhase = 'shield';
+        } else {
+          this._bossPhase = 'summon';
+        }
+      }
+    } else if (this._bossPhase === 'laser') {
+      this.vx *= 0.7;
+      this.vy *= 0.7;
+
+      // Charging up laser
+      if (this._phaseTimer < 0.6) {
+        // Wind-up — accumulate energy
+        if (this.particles) {
+          for (let i = 0; i < 3; i++) {
+            this.particles.spawn(
+              this.x + (Math.random() - 0.5) * 60,
+              this.y + (Math.random() - 0.5) * 60,
+              'enemy_death',
+              { vx: 0, vy: -40, life: 0.3, color: '#ff0088' }
+            );
+          }
+        }
+      } else if (this._phaseTimer < LASER_DURATION) {
+        // Fire sweeping laser
+        if (!this._laserActive) {
+          this._laserActive = true;
+          this._laserAngle = Math.atan2(game.player.y - this.y, game.player.x - this.x);
+        }
+        this._laserAngle += dt * 1.2;
+        // Laser damage tick
+        const lx = this.x + Math.cos(this._laserAngle) * 500;
+        const ly = this.y + Math.sin(this._laserAngle) * 500;
+        const pdx = game.player.x - this.x;
+        const pdy = game.player.y - this.y;
+        const pdist = Math.hypot(pdx, pdy);
+        if (pdist < 500) {
+          const laserDist = Math.abs(Math.sin(this._laserAngle) * pdx - Math.cos(this._laserAngle) * pdy);
+          if (laserDist < 30 && game.player.takeDamage) {
+            game.player.takeDamage(this.damage * dt * 0.8);
+          }
+        }
+        // Laser particles
+        if (this.particles) {
+          this.particles.spawn(lx, ly, 'enemy_death', {
+            vx: (Math.random() - 0.5) * 50, vy: (Math.random() - 0.5) * 50,
+            life: 0.2, color: '#ff44aa'
+          });
+        }
+      }
+
+      if (this._phaseTimer >= LASER_DURATION) {
+        this._bossPhase = 'idle';
+        this._phaseTimer = 0;
+        this._laserActive = false;
+      }
+    } else if (this._bossPhase === 'shield') {
+      this.vx *= 0.7;
+      this.vy *= 0.7;
+      this._shieldActive = true;
+
+      // Absorb nearby projectiles
+      if (this._actionTimer >= 0.3) {
+        this._actionTimer = 0;
+        // Regen HP while shielding
+        if (this.hp < this.maxHp) {
+          this.hp = Math.min(this.maxHp, this.hp + 20 * dt);
+        }
+        if (this.particles) {
+          this.particles.spawn(
+            this.x + (Math.random() - 0.5) * 60,
+            this.y + (Math.random() - 0.5) * 60,
+            'enemy_death',
+            { vx: 0, vy: -30, life: 0.3, color: '#ff88cc' }
+          );
+        }
+      }
+
+      if (this._phaseTimer >= SHIELD_DURATION) {
+        this._bossPhase = 'idle';
+        this._phaseTimer = 0;
+        this._actionTimer = 0;
+        this._shieldActive = false;
+      }
+    } else if (this._bossPhase === 'summon') {
+      this.vx *= 0.8;
+      this.vy *= 0.8;
+
+      if (this._phaseTimer >= 0.8 && this._droneCooldown >= DRONE_COOLDOWN) {
+        this._droneCooldown = 0;
+        const spawnPoints = [
+          { x: this.x - 200, y: 460 },
+          { x: this.x + 200, y: 460 },
+          { x: this.x, y: 280 },
+        ];
+        for (const sp of spawnPoints) {
+          const drone = game.enemies.spawn('core_fusion_drone', sp.x, sp.y);
+          if (drone) {
+            drone.hp = 60;
+            drone.maxHp = 60;
+          }
+          if (this.particles) {
+            this.particles.spawn(sp.x, sp.y, 'enemy_death', {
+              vx: 0, vy: -50, life: 0.5, color: '#ff00ff'
+            });
+          }
+        }
+      }
+
+      if (this._phaseTimer >= 3.0) {
+        this._bossPhase = 'idle';
+        this._phaseTimer = 0;
+        this._actionTimer = 0;
+      }
+    }
+  };
+
+  enemy._bossRender = function(ctx) {
+    if (this._showPhaseLabel) {
+      const colors = { idle: '#ff88cc', laser: '#ff0088', shield: '#ff88ff', summon: '#ff00ff' };
+      const labels = { idle: '⚔ 待机', laser: '⚡ 激光扫射', shield: '🛡 能量护盾', summon: '👥 召唤无人机' };
+      ctx.fillStyle = colors[this._bossPhase] || '#ff88cc';
+      ctx.font = 'bold 11px Courier New';
+      ctx.textAlign = 'center';
+      ctx.fillText(labels[this._bossPhase] || '', this.x, this.y - this.size / 2 - 25);
+      ctx.textAlign = 'left';
+    }
+    // Shield visual
+    if (this._shieldActive) {
+      ctx.save();
+      ctx.globalAlpha = 0.25 + Math.sin(performance.now() * 0.008) * 0.1;
+      ctx.strokeStyle = '#ff88ff';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size / 2 + 20, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+  };
+
+  enemy._showPhaseLabel = true;
+}
+
+/**
  * Attach boss behavior to an enemy based on type.
  * Called by EnemyManager when spawning bosses.
  */
@@ -602,6 +789,9 @@ export function attachBossBehavior(enemy, game) {
       break;
     case 'boss_base_commander':
       applyBaseCommanderBehavior(enemy, game);
+      break;
+    case 'boss_core_guardian':
+      applyCoreGuardianBehavior(enemy, game);
       break;
     case 'boss_core_will':
       applyCoreWillBehavior(enemy, game);

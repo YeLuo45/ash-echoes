@@ -27,10 +27,10 @@ export class EnemyManager {
   spawn(type, x, y) {
     const template = this.enemyTypes[type] || this.enemyTypes['scavenger'];
     const enemy = new Enemy(type, x, y, template, this.projectiles, this.particles);
+    enemy._gameRef = this._gameRef;
     this.enemies.push(enemy);
-    // Attach boss behavior if applicable
-    if (this._gameRef && ['boss_ruins_king', 'boss_base_commander', 'boss_core_will'].includes(type)) {
-      enemy._gameRef = this._gameRef;
+    // Attach boss behavior for all boss types
+    if (this._gameRef && ['boss_ruins_king', 'boss_base_commander', 'boss_core_will', 'boss_core_guardian'].includes(type)) {
       attachBossBehavior(enemy, this._gameRef);
     }
     return enemy;
