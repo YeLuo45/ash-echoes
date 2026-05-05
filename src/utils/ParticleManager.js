@@ -65,6 +65,12 @@ export class Particle {
       ctx.beginPath();
       ctx.arc(0, 0, 5 * alpha, 0, Math.PI * 2);
       ctx.fill();
+    } else if (this.type === 'weapon_switch') {
+      ctx.strokeStyle = '#ff9f1c';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(0, 0, 20 * alpha, 0, Math.PI * 2);
+      ctx.stroke();
     } else {
       ctx.fillStyle = this.color;
       ctx.beginPath();
@@ -101,5 +107,9 @@ export class ParticleManager {
     for (const p of this.particles) {
       p.render(ctx);
     }
+  }
+
+  clear() {
+    this.particles = [];
   }
 }

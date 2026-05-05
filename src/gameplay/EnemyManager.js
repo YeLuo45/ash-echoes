@@ -1,17 +1,14 @@
 import { Enemy } from './Enemy.js';
+import { ENEMY_TEMPLATES } from './enemies.js';
+import { attachBossBehavior } from './BossBehaviors.js';
 
 export class EnemyManager {
   constructor(projectiles, particles) {
     this.projectiles = projectiles;
     this.particles = particles;
     this.enemies = [];
-    this.enemyTypes = {
-      'scavenger': { hp: 30, speed: 80, damage: 10, attackRange: 40, color: '#8b5a5a', size: 28, score: 10 },
-      'patroller': { hp: 50, speed: 60, damage: 15, attackRange: 60, color: '#5a8b5a', size: 32, score: 20 },
-      'ranged': { hp: 25, speed: 40, damage: 8, attackRange: 300, color: '#5a5a8b', size: 26, shootInterval: 1.5, score: 15 },
-      'elite': { hp: 120, speed: 50, damage: 25, attackRange: 50, color: '#8b5a8b', size: 40, score: 50 },
-      'boss': { hp: 500, speed: 30, damage: 30, attackRange: 80, color: '#8b0000', size: 64, score: 200 },
-    };
+    // Use ENEMY_TEMPLATES directly for all enemy types
+    this.enemyTypes = ENEMY_TEMPLATES;
   }
 
   init(levelData) {
@@ -30,8 +27,18 @@ export class EnemyManager {
   spawn(type, x, y) {
     const template = this.enemyTypes[type] || this.enemyTypes['scavenger'];
     const enemy = new Enemy(type, x, y, template, this.projectiles, this.particles);
+    enemy._gameRef = this._gameRef;
     this.enemies.push(enemy);
+    // Attach boss behavior for all boss types
+    if (this._gameRef && ['boss_ruins_king', 'boss_base_commander', 'boss_core_will', 'boss_core_guardian'].includes(type)) {
+      attachBossBehavior(enemy, this._gameRef);
+    }
     return enemy;
+  }
+
+  // Called by GameV2 to pass game reference for boss AI
+  setGameRef(game) {
+    this._gameRef = game;
   }
 
   update(dt) {

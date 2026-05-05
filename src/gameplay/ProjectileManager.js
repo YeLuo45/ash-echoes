@@ -38,4 +38,8 @@ export class ProjectileManager {
   getProjectiles() {
     return this.projectiles;
   }
+
+  clear() {
+    this.projectiles = [];
+  }
 }
