@@ -24,6 +24,24 @@ export const ENEMY_TEMPLATES = {
   elite_temple: { hp: 180, speed: 60, damage: 30, attackRange: 50, color: '#4411aa', size: 44, score: 70 },
   void_specter: { hp: 25, speed: 130, damage: 10, attackRange: 120, color: '#7755ee', size: 20, shootInterval: 0.8, score: 15 },
   boss_eternal_guardian: { hp: 1000, speed: 20, damage: 45, attackRange: 90, color: '#330099', size: 90, score: 600 },
+
+  // === Chapter 4: Ash Ruins — Elite Enemies ===
+  elite_inferno: { hp: 200, speed: 65, damage: 30, attackRange: 50, color: '#aa3300', size: 42, score: 75 },        // Ch4-1
+  elite_ironclad: { hp: 350, speed: 35, damage: 25, attackRange: 55, color: '#555555', size: 46, score: 80 },         // Ch4-2 — armored, slow
+  elite_pyromancer: { hp: 140, speed: 75, damage: 18, attackRange: 220, color: '#ff5500', size: 38, shootInterval: 1.8, score: 85 }, // Ch4-3 — ranged + fire
+  boss_ruins_king: { hp: 1200, speed: 28, damage: 50, attackRange: 90, color: '#8b2200', size: 88, score: 700 },     // Ch4-6 — Earthquake + Summon + SpinCharge
+
+  // === Chapter 5: Base Omega — Elite Enemies ===
+  elite_grenadier: { hp: 160, speed: 70, damage: 22, attackRange: 180, color: '#556b2f', size: 36, shootInterval: 2.0, score: 80 },   // Ch5-1 — throws grenades
+  elite_shield: { hp: 400, speed: 30, damage: 15, attackRange: 40, color: '#2f4f4f', size: 48, score: 90 },         // Ch5-2 — massive HP, low damage
+  elite_commander: { hp: 180, speed: 80, damage: 35, attackRange: 60, color: '#4b0082', size: 40, score: 95 },       // Ch5-3 — fast + buffs nearby
+  boss_base_commander: { hp: 1500, speed: 22, damage: 45, attackRange: 100, color: '#191970', size: 92, score: 800 }, // Ch5-6 — SummonTurrets + EMP + Retreat
+
+  // === Chapter 6: Core Will — Elite Enemies ===
+  elite_warden: { hp: 220, speed: 60, damage: 32, attackRange: 50, color: '#8b008b', size: 44, score: 90 },         // Ch6-1 — balanced
+  elite_dissolver: { hp: 120, speed: 90, damage: 40, attackRange: 30, color: '#dc143c', size: 34, score: 100 },      // Ch6-2 — glass cannon, high burst
+  elite_nexus: { hp: 260, speed: 50, damage: 15, attackRange: 200, color: '#9400d3', size: 40, shootInterval: 1.5, score: 110 }, // Ch6-3 — support ranged
+  boss_core_will: { hp: 2000, speed: 18, damage: 55, attackRange: 95, color: '#b8860b', size: 100, score: 1000 },     // Ch6-6 — 3-Phase: Melee→Ranged→Berserk
 };
 
 export function getEnemyTemplate(type) {

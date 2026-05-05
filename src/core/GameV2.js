@@ -39,6 +39,7 @@ export class GameV2 {
     this.particles = new ParticleManager();
     this.projectiles = new ProjectileManager();
     this.enemies = new EnemyManager(this.projectiles, this.particles);
+    this.enemies.setGameRef(this);  // enable boss AI access to game systems
     this.player = new Player(this.input, this.projectiles, this.particles, this.enemies);
     this.level = new Level(this.enemies, this.player);
     this.ui = new UI(this.player, this.enemies);

@@ -1,3 +1,13 @@
+// Chapter 1 (original V1 level — kept as-is)
+export const CHAPTER1 = {
+  id: 1,
+  name: '回响废墟',
+  theme: 'ruins',
+  bgColor1: '#0a0a0f',
+  bgColor2: '#12121a',
+  accentColor: '#ff6b35',
+};
+
 // Chapter 2: 回响深渊 (Abyss of Echoes) - underwater ruins theme
 export const CHAPTER2 = {
   id: 2,
@@ -8,9 +18,7 @@ export const CHAPTER2 = {
   accentColor: '#00d4ff',
   levels: [
     {
-      id: '2-1',
-      name: '深渊入口',
-      width: 2400, height: 800,
+      id: '2-1', name: '深渊入口', width: 2400, height: 800,
       enemies: [
         { type: 'abyssal_crawler', x: 300, y: 460 },
         { type: 'abyssal_crawler', x: 600, y: 460 },
@@ -37,9 +45,7 @@ export const CHAPTER2 = {
       portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
     },
     {
-      id: '2-2',
-      name: '潮汐通道',
-      width: 2400, height: 800,
+      id: '2-2', name: '潮汐通道', width: 2400, height: 800,
       enemies: [
         { type: 'abyssal_crawler', x: 300, y: 460 },
         { type: 'drifter', x: 400, y: 300 },
@@ -68,9 +74,7 @@ export const CHAPTER2 = {
       portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
     },
     {
-      id: '2-3',
-      name: '淹没神殿',
-      width: 2400, height: 800,
+      id: '2-3', name: '淹没神殿', width: 2400, height: 800,
       enemies: [
         { type: 'tide_caller', x: 350, y: 460 },
         { type: 'drifter', x: 550, y: 280 },
@@ -100,9 +104,7 @@ export const CHAPTER2 = {
       portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
     },
     {
-      id: '2-4',
-      name: '回响漩涡',
-      width: 2400, height: 800,
+      id: '2-4', name: '回响漩涡', width: 2400, height: 800,
       enemies: [
         { type: 'ripper', x: 300, y: 280 },
         { type: 'abyssal_crawler', x: 400, y: 460 },
@@ -135,9 +137,7 @@ export const CHAPTER2 = {
       portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
     },
     {
-      id: '2-5',
-      name: '深渊之心',
-      width: 2400, height: 800,
+      id: '2-5', name: '深渊之心', width: 2400, height: 800,
       enemies: [
         { type: 'ripper', x: 300, y: 280 },
         { type: 'ripper', x: 500, y: 320 },
@@ -172,10 +172,7 @@ export const CHAPTER2 = {
       portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
     },
     {
-      id: '2-6',
-      name: '深渊领主',
-      isBoss: true,
-      width: 2400, height: 800,
+      id: '2-6', name: '深渊领主', isBoss: true, width: 2400, height: 800,
       enemies: [
         { type: 'boss_abyss_lord', x: 2000, y: 380 },
       ],
@@ -205,9 +202,7 @@ export const CHAPTER3 = {
   accentColor: '#9b59b6',
   levels: [
     {
-      id: '3-1',
-      name: '时空裂缝',
-      width: 2400, height: 800,
+      id: '3-1', name: '时空裂缝', width: 2400, height: 800,
       enemies: [
         { type: 'void_wraith', x: 300, y: 460 },
         { type: 'chronofrog', x: 500, y: 280 },
@@ -236,9 +231,7 @@ export const CHAPTER3 = {
       portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
     },
     {
-      id: '3-2',
-      name: '回溯迷宫',
-      width: 2400, height: 800,
+      id: '3-2', name: '回溯迷宫', width: 2400, height: 800,
       enemies: [
         { type: 'echo_shade', x: 300, y: 460 },
         { type: 'chronofrog', x: 450, y: 280 },
@@ -270,9 +263,7 @@ export const CHAPTER3 = {
       portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
     },
     {
-      id: '3-3',
-      name: '永恒夹缝',
-      width: 2400, height: 800,
+      id: '3-3', name: '永恒夹缝', width: 2400, height: 800,
       enemies: [
         { type: 'void_wraith', x: 300, y: 460 },
         { type: 'echo_shade', x: 450, y: 280 },
@@ -306,9 +297,7 @@ export const CHAPTER3 = {
       portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
     },
     {
-      id: '3-4',
-      name: '时间洪流',
-      width: 2400, height: 800,
+      id: '3-4', name: '时间洪流', width: 2400, height: 800,
       enemies: [
         { type: 'chronofrog', x: 300, y: 280 },
         { type: 'chronofrog', x: 500, y: 320 },
@@ -343,9 +332,7 @@ export const CHAPTER3 = {
       portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
     },
     {
-      id: '3-5',
-      name: '回廊核心',
-      width: 2400, height: 800,
+      id: '3-5', name: '回廊核心', width: 2400, height: 800,
       enemies: [
         { type: 'echo_shade', x: 300, y: 460 },
         { type: 'void_wraith', x: 400, y: 280 },
@@ -380,10 +367,7 @@ export const CHAPTER3 = {
       portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
     },
     {
-      id: '3-6',
-      name: '永恒守护者',
-      isBoss: true,
-      width: 2400, height: 800,
+      id: '3-6', name: '永恒守护者', isBoss: true, width: 2400, height: 800,
       enemies: [
         { type: 'boss_eternal_guardian', x: 2000, y: 380 },
       ],
@@ -403,14 +387,598 @@ export const CHAPTER3 = {
   ],
 };
 
-// Chapter 1 (original V1 level as reference)
-export const CHAPTER1 = {
-  id: 1,
-  name: '回响废墟',
-  theme: 'ruins',
-  bgColor1: '#0a0a0f',
-  bgColor2: '#12121a',
-  accentColor: '#ff6b35',
+// ============================================================
+// CHAPTER 4: 灰烬遗迹 (Ash Ruins) — fire/wasteland theme
+// Elite Enemies: elite_inferno, elite_ironclad, elite_pyromancer
+// Boss: boss_ruins_king — Earthquake + Summon Minions + SpinCharge
+// ============================================================
+export const CHAPTER4 = {
+  id: 4,
+  name: '灰烬遗迹',
+  theme: 'ruins_fire',
+  bgColor1: '#1a0a00',
+  bgColor2: '#2a1000',
+  accentColor: '#ff4400',
+  levels: [
+    // ── Ch4-1: 烈焰入口 ──────────────────────────────
+    {
+      id: '4-1', name: '烈焰入口', width: 2400, height: 800,
+      enemies: [
+        { type: 'scavenger', x: 250, y: 460 },
+        { type: 'scavenger', x: 450, y: 460 },
+        { type: 'patroller', x: 550, y: 300 },
+        { type: 'scavenger', x: 700, y: 460 },
+        { type: 'elite_inferno', x: 1100, y: 280 },   // ← Elite #1
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 180, y: 380, w: 140, h: 20, type: 'platform' },
+        { x: 420, y: 300, w: 130, h: 20, type: 'platform' },
+        { x: 660, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 900, y: 280, w: 160, h: 20, type: 'platform' },
+        { x: 1160, y: 380, w: 130, h: 20, type: 'platform' },
+        { x: 1380, y: 300, w: 150, h: 20, type: 'platform' },
+        { x: 1620, y: 250, w: 170, h: 20, type: 'platform' },
+        { x: 1880, y: 350, w: 140, h: 20, type: 'platform' },
+        { x: 2100, y: 400, w: 200, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 250, y: 360 }, { x: 490, y: 280 }, { x: 720, y: 330 },
+        { x: 970, y: 260 }, { x: 1230, y: 360 }, { x: 1460, y: 280 },
+      ],
+      shrines: [{ x: 150, y: 460, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch4-2: 焦黑走廊 ──────────────────────────────
+    {
+      id: '4-2', name: '焦黑走廊', width: 2400, height: 800,
+      enemies: [
+        { type: 'patroller', x: 300, y: 280 },
+        { type: 'scavenger', x: 400, y: 460 },
+        { type: 'patroller', x: 600, y: 320 },
+        { type: 'scavenger', x: 800, y: 460 },
+        { type: 'ranged', x: 950, y: 280 },
+        { type: 'elite_ironclad', x: 1400, y: 460 },  // ← Elite #2 (armored)
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 150, y: 360, w: 130, h: 20, type: 'platform' },
+        { x: 380, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 840, y: 280, w: 140, h: 20, type: 'platform' },
+        { x: 1080, y: 380, w: 110, h: 20, type: 'platform' },
+        { x: 1300, y: 300, w: 160, h: 20, type: 'platform' },
+        { x: 1550, y: 250, w: 180, h: 20, type: 'platform' },
+        { x: 1820, y: 350, w: 140, h: 20, type: 'platform' },
+        { x: 2050, y: 280, w: 200, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 215, y: 340 }, { x: 455, y: 260 }, { x: 690, y: 330 },
+        { x: 920, y: 260 }, { x: 1150, y: 360 }, { x: 1390, y: 280 },
+        { x: 1640, y: 230 },
+      ],
+      shrines: [{ x: 150, y: 460, active: false }, { x: 1350, y: 280, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch4-3: 烈焰夹缝 ──────────────────────────────
+    {
+      id: '4-3', name: '烈焰夹缝', width: 2400, height: 800,
+      enemies: [
+        { type: 'scavenger', x: 300, y: 460 },
+        { type: 'ranged', x: 450, y: 280 },
+        { type: 'patroller', x: 600, y: 320 },
+        { type: 'scavenger', x: 750, y: 460 },
+        { type: 'ranged', x: 900, y: 300 },
+        { type: 'patroller', x: 1100, y: 460 },
+        { type: 'elite_pyromancer', x: 1500, y: 460 }, // ← Elite #3 (ranged fire)
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 180, y: 380, w: 140, h: 20, type: 'platform' },
+        { x: 420, y: 300, w: 130, h: 20, type: 'platform' },
+        { x: 660, y: 350, w: 110, h: 20, type: 'platform' },
+        { x: 880, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 1120, y: 320, w: 130, h: 20, type: 'platform' },
+        { x: 1360, y: 250, w: 160, h: 20, type: 'platform' },
+        { x: 1620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 1850, y: 280, w: 200, h: 20, type: 'platform' },
+        { x: 2100, y: 400, w: 180, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 250, y: 360 }, { x: 490, y: 280 }, { x: 720, y: 330 },
+        { x: 960, y: 260 }, { x: 1195, y: 300 }, { x: 1440, y: 230 },
+        { x: 1700, y: 330 },
+      ],
+      shrines: [{ x: 150, y: 460, active: false }, { x: 1380, y: 230, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch4-4: 崩塌高塔 ──────────────────────────────
+    {
+      id: '4-4', name: '崩塌高塔', width: 2400, height: 800,
+      enemies: [
+        { type: 'patroller', x: 280, y: 280 },
+        { type: 'scavenger', x: 350, y: 460 },
+        { type: 'patroller', x: 550, y: 320 },
+        { type: 'ranged', x: 700, y: 250 },
+        { type: 'scavenger', x: 900, y: 460 },
+        { type: 'patroller', x: 1050, y: 280 },
+        { type: 'ranged', x: 1250, y: 300 },
+        { type: 'scavenger', x: 1450, y: 460 },
+        { type: 'patroller', x: 1650, y: 280 },
+        { type: 'elite_inferno', x: 1850, y: 460 },
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 150, y: 360, w: 130, h: 20, type: 'platform' },
+        { x: 380, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 840, y: 280, w: 140, h: 20, type: 'platform' },
+        { x: 1080, y: 380, w: 110, h: 20, type: 'platform' },
+        { x: 1300, y: 300, w: 160, h: 20, type: 'platform' },
+        { x: 1550, y: 250, w: 180, h: 20, type: 'platform' },
+        { x: 1800, y: 350, w: 140, h: 20, type: 'platform' },
+        { x: 2050, y: 280, w: 200, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 215, y: 340 }, { x: 455, y: 260 }, { x: 690, y: 330 },
+        { x: 920, y: 260 }, { x: 1150, y: 360 }, { x: 1360, y: 280 },
+        { x: 1610, y: 230 }, { x: 1880, y: 330 },
+      ],
+      shrines: [{ x: 150, y: 460, active: false }, { x: 1500, y: 230, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch4-5: 熔岩之心 ──────────────────────────────
+    {
+      id: '4-5', name: '熔岩之心', width: 2400, height: 800,
+      enemies: [
+        { type: 'ranged', x: 300, y: 280 },
+        { type: 'patroller', x: 400, y: 320 },
+        { type: 'scavenger', x: 500, y: 460 },
+        { type: 'ranged', x: 700, y: 250 },
+        { type: 'patroller', x: 850, y: 460 },
+        { type: 'ranged', x: 1050, y: 300 },
+        { type: 'patroller', x: 1200, y: 460 },
+        { type: 'elite_pyromancer', x: 1450, y: 280 },
+        { type: 'elite_ironclad', x: 1750, y: 460 },
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 180, y: 380, w: 140, h: 20, type: 'platform' },
+        { x: 420, y: 300, w: 130, h: 20, type: 'platform' },
+        { x: 660, y: 350, w: 110, h: 20, type: 'platform' },
+        { x: 880, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 1120, y: 320, w: 130, h: 20, type: 'platform' },
+        { x: 1360, y: 250, w: 160, h: 20, type: 'platform' },
+        { x: 1620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 1850, y: 280, w: 200, h: 20, type: 'platform' },
+        { x: 2100, y: 400, w: 200, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 250, y: 360 }, { x: 490, y: 280 }, { x: 720, y: 330 },
+        { x: 960, y: 260 }, { x: 1195, y: 300 }, { x: 1440, y: 230 },
+        { x: 1700, y: 330 }, { x: 1950, y: 260 },
+      ],
+      shrines: [{ x: 150, y: 460, active: false }, { x: 1650, y: 330, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch4-6: 废墟之王 (BOSS) ───────────────────────
+    {
+      id: '4-6', name: '废墟之王', isBoss: true, width: 2400, height: 800,
+      enemies: [
+        { type: 'boss_ruins_king', x: 2000, y: 380 },
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 200, y: 380, w: 150, h: 20, type: 'platform' },
+        { x: 500, y: 300, w: 200, h: 20, type: 'platform' },
+        { x: 800, y: 250, w: 150, h: 20, type: 'platform' },
+        { x: 1100, y: 350, w: 180, h: 20, type: 'platform' },
+        { x: 1400, y: 280, w: 200, h: 20, type: 'platform' },
+        { x: 1700, y: 380, w: 150, h: 20, type: 'platform' },
+      ],
+      collectibles: [],
+      shrines: [{ x: 150, y: 460, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+  ],
 };
 
-export const ALL_CHAPTERS = [CHAPTER1, CHAPTER2, CHAPTER3];
+// ============================================================
+// CHAPTER 5: 基地Omega (Base Omega) — military/industrial theme
+// Elite Enemies: elite_grenadier, elite_shield, elite_commander
+// Boss: boss_base_commander — SummonTurrets + EMP + TacticalRetreat
+// ============================================================
+export const CHAPTER5 = {
+  id: 5,
+  name: '基地Omega',
+  theme: 'military',
+  bgColor1: '#0a0f0a',
+  bgColor2: '#0f1a0f',
+  accentColor: '#44ff00',
+  levels: [
+    // ── Ch5-1: 前哨站 ────────────────────────────────
+    {
+      id: '5-1', name: '前哨站', width: 2400, height: 800,
+      enemies: [
+        { type: 'patroller', x: 300, y: 280 },
+        { type: 'scavenger', x: 400, y: 460 },
+        { type: 'patroller', x: 600, y: 320 },
+        { type: 'scavenger', x: 750, y: 460 },
+        { type: 'ranged', x: 900, y: 250 },
+        { type: 'elite_grenadier', x: 1300, y: 460 }, // ← Elite #1 (grenade)
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 150, y: 360, w: 130, h: 20, type: 'platform' },
+        { x: 380, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 840, y: 280, w: 140, h: 20, type: 'platform' },
+        { x: 1080, y: 380, w: 110, h: 20, type: 'platform' },
+        { x: 1300, y: 300, w: 160, h: 20, type: 'platform' },
+        { x: 1550, y: 250, w: 180, h: 20, type: 'platform' },
+        { x: 1820, y: 350, w: 140, h: 20, type: 'platform' },
+        { x: 2050, y: 280, w: 200, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 215, y: 340 }, { x: 455, y: 260 }, { x: 690, y: 330 },
+        { x: 920, y: 260 }, { x: 1150, y: 360 }, { x: 1390, y: 280 },
+        { x: 1640, y: 230 },
+      ],
+      shrines: [{ x: 150, y: 460, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch5-2: 防线突破 ──────────────────────────────
+    {
+      id: '5-2', name: '防线突破', width: 2400, height: 800,
+      enemies: [
+        { type: 'patroller', x: 300, y: 460 },
+        { type: 'patroller', x: 500, y: 280 },
+        { type: 'ranged', x: 650, y: 300 },
+        { type: 'patroller', x: 850, y: 460 },
+        { type: 'scavenger', x: 1000, y: 320 },
+        { type: 'ranged', x: 1200, y: 280 },
+        { type: 'elite_shield', x: 1600, y: 460 },  // ← Elite #2 (tank)
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 180, y: 380, w: 140, h: 20, type: 'platform' },
+        { x: 420, y: 300, w: 130, h: 20, type: 'platform' },
+        { x: 660, y: 350, w: 110, h: 20, type: 'platform' },
+        { x: 880, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 1120, y: 320, w: 130, h: 20, type: 'platform' },
+        { x: 1360, y: 250, w: 160, h: 20, type: 'platform' },
+        { x: 1620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 1850, y: 280, w: 200, h: 20, type: 'platform' },
+        { x: 2100, y: 400, w: 180, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 250, y: 360 }, { x: 490, y: 280 }, { x: 720, y: 330 },
+        { x: 960, y: 260 }, { x: 1195, y: 300 }, { x: 1440, y: 230 },
+        { x: 1700, y: 330 },
+      ],
+      shrines: [{ x: 150, y: 460, active: false }, { x: 1380, y: 230, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch5-3: 指挥中枢 ──────────────────────────────
+    {
+      id: '5-3', name: '指挥中枢', width: 2400, height: 800,
+      enemies: [
+        { type: 'ranged', x: 300, y: 280 },
+        { type: 'patroller', x: 450, y: 460 },
+        { type: 'ranged', x: 600, y: 300 },
+        { type: 'patroller', x: 800, y: 460 },
+        { type: 'scavenger', x: 950, y: 280 },
+        { type: 'patroller', x: 1150, y: 460 },
+        { type: 'elite_commander', x: 1550, y: 280 }, // ← Elite #3 (fast+buff)
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 150, y: 360, w: 130, h: 20, type: 'platform' },
+        { x: 380, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 840, y: 280, w: 140, h: 20, type: 'platform' },
+        { x: 1080, y: 380, w: 110, h: 20, type: 'platform' },
+        { x: 1300, y: 300, w: 160, h: 20, type: 'platform' },
+        { x: 1550, y: 250, w: 180, h: 20, type: 'platform' },
+        { x: 1820, y: 350, w: 140, h: 20, type: 'platform' },
+        { x: 2050, y: 280, w: 200, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 215, y: 340 }, { x: 455, y: 260 }, { x: 690, y: 330 },
+        { x: 920, y: 260 }, { x: 1150, y: 360 }, { x: 1360, y: 280 },
+        { x: 1610, y: 230 }, { x: 1880, y: 330 },
+      ],
+      shrines: [{ x: 150, y: 460, active: false }, { x: 1500, y: 230, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch5-4: 警戒区域 ──────────────────────────────
+    {
+      id: '5-4', name: '警戒区域', width: 2400, height: 800,
+      enemies: [
+        { type: 'patroller', x: 280, y: 280 },
+        { type: 'scavenger', x: 350, y: 460 },
+        { type: 'patroller', x: 550, y: 320 },
+        { type: 'ranged', x: 700, y: 250 },
+        { type: 'scavenger', x: 900, y: 460 },
+        { type: 'patroller', x: 1050, y: 280 },
+        { type: 'ranged', x: 1250, y: 300 },
+        { type: 'patroller', x: 1450, y: 460 },
+        { type: 'ranged', x: 1650, y: 280 },
+        { type: 'elite_grenadier', x: 1900, y: 460 },
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 150, y: 360, w: 130, h: 20, type: 'platform' },
+        { x: 380, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 840, y: 280, w: 140, h: 20, type: 'platform' },
+        { x: 1080, y: 380, w: 110, h: 20, type: 'platform' },
+        { x: 1300, y: 300, w: 160, h: 20, type: 'platform' },
+        { x: 1550, y: 250, w: 180, h: 20, type: 'platform' },
+        { x: 1800, y: 350, w: 140, h: 20, type: 'platform' },
+        { x: 2050, y: 280, w: 200, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 215, y: 340 }, { x: 455, y: 260 }, { x: 690, y: 330 },
+        { x: 920, y: 260 }, { x: 1150, y: 360 }, { x: 1360, y: 280 },
+        { x: 1610, y: 230 }, { x: 1880, y: 330 },
+      ],
+      shrines: [{ x: 150, y: 460, active: false }, { x: 1550, y: 230, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch5-5: 核心入口 ──────────────────────────────
+    {
+      id: '5-5', name: '核心入口', width: 2400, height: 800,
+      enemies: [
+        { type: 'ranged', x: 300, y: 280 },
+        { type: 'patroller', x: 400, y: 320 },
+        { type: 'scavenger', x: 550, y: 460 },
+        { type: 'ranged', x: 700, y: 250 },
+        { type: 'patroller', x: 850, y: 460 },
+        { type: 'ranged', x: 1050, y: 300 },
+        { type: 'patroller', x: 1200, y: 460 },
+        { type: 'elite_shield', x: 1500, y: 280 },
+        { type: 'elite_commander', x: 1800, y: 460 },
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 180, y: 380, w: 140, h: 20, type: 'platform' },
+        { x: 420, y: 300, w: 130, h: 20, type: 'platform' },
+        { x: 660, y: 350, w: 110, h: 20, type: 'platform' },
+        { x: 880, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 1120, y: 320, w: 130, h: 20, type: 'platform' },
+        { x: 1360, y: 250, w: 160, h: 20, type: 'platform' },
+        { x: 1620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 1850, y: 280, w: 200, h: 20, type: 'platform' },
+        { x: 2100, y: 400, w: 200, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 250, y: 360 }, { x: 490, y: 280 }, { x: 720, y: 330 },
+        { x: 960, y: 260 }, { x: 1195, y: 300 }, { x: 1440, y: 230 },
+        { x: 1700, y: 330 }, { x: 1950, y: 260 },
+      ],
+      shrines: [{ x: 150, y: 460, active: false }, { x: 1650, y: 330, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch5-6: 基地指挥官 (BOSS) ────────────────────
+    {
+      id: '5-6', name: '基地指挥官', isBoss: true, width: 2400, height: 800,
+      enemies: [
+        { type: 'boss_base_commander', x: 2000, y: 380 },
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 200, y: 380, w: 150, h: 20, type: 'platform' },
+        { x: 500, y: 300, w: 200, h: 20, type: 'platform' },
+        { x: 800, y: 250, w: 150, h: 20, type: 'platform' },
+        { x: 1100, y: 350, w: 180, h: 20, type: 'platform' },
+        { x: 1400, y: 280, w: 200, h: 20, type: 'platform' },
+        { x: 1700, y: 380, w: 150, h: 20, type: 'platform' },
+      ],
+      collectibles: [],
+      shrines: [{ x: 150, y: 460, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+  ],
+};
+
+// ============================================================
+// CHAPTER 6: 核心意志 (Core Will) — ancient mechanical core
+// Elite Enemies: elite_warden, elite_dissolver, elite_nexus
+// Boss: boss_core_will — 3-Phase: Melee → Ranged → Berserk
+// ============================================================
+export const CHAPTER6 = {
+  id: 6,
+  name: '核心意志',
+  theme: 'core',
+  bgColor1: '#0a0a05',
+  bgColor2: '#0f1a0a',
+  accentColor: '#ffd700',
+  levels: [
+    // ── Ch6-1: 意志觉醒 ─────────────────────────────
+    {
+      id: '6-1', name: '意志觉醒', width: 2400, height: 800,
+      enemies: [
+        { type: 'void_wraith', x: 300, y: 460 },
+        { type: 'echo_shade', x: 450, y: 280 },
+        { type: 'void_wraith', x: 600, y: 460 },
+        { type: 'chronofrog', x: 750, y: 300 },
+        { type: 'echo_shade', x: 900, y: 460 },
+        { type: 'elite_warden', x: 1300, y: 280 },  // ← Elite #1
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 180, y: 380, w: 140, h: 20, type: 'platform' },
+        { x: 420, y: 300, w: 130, h: 20, type: 'platform' },
+        { x: 660, y: 350, w: 110, h: 20, type: 'platform' },
+        { x: 880, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 1120, y: 320, w: 130, h: 20, type: 'platform' },
+        { x: 1360, y: 250, w: 160, h: 20, type: 'platform' },
+        { x: 1620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 1850, y: 280, w: 200, h: 20, type: 'platform' },
+        { x: 2100, y: 400, w: 180, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 250, y: 360 }, { x: 490, y: 280 }, { x: 720, y: 330 },
+        { x: 960, y: 260 }, { x: 1195, y: 300 }, { x: 1440, y: 230 },
+      ],
+      shrines: [{ x: 150, y: 460, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch6-2: 核心侵蚀 ─────────────────────────────
+    {
+      id: '6-2', name: '核心侵蚀', width: 2400, height: 800,
+      enemies: [
+        { type: 'temporal_rift', x: 280, y: 280 },
+        { type: 'void_wraith', x: 400, y: 460 },
+        { type: 'temporal_rift', x: 550, y: 320 },
+        { type: 'void_wraith', x: 700, y: 460 },
+        { type: 'echo_shade', x: 900, y: 280 },
+        { type: 'void_wraith', x: 1100, y: 460 },
+        { type: 'elite_dissolver', x: 1500, y: 280 }, // ← Elite #2 (burst)
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 150, y: 360, w: 130, h: 20, type: 'platform' },
+        { x: 380, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 840, y: 280, w: 140, h: 20, type: 'platform' },
+        { x: 1080, y: 380, w: 110, h: 20, type: 'platform' },
+        { x: 1300, y: 300, w: 160, h: 20, type: 'platform' },
+        { x: 1550, y: 250, w: 180, h: 20, type: 'platform' },
+        { x: 1820, y: 350, w: 140, h: 20, type: 'platform' },
+        { x: 2050, y: 280, w: 200, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 215, y: 340 }, { x: 455, y: 260 }, { x: 690, y: 330 },
+        { x: 920, y: 260 }, { x: 1150, y: 360 }, { x: 1360, y: 280 },
+        { x: 1610, y: 230 },
+      ],
+      shrines: [{ x: 150, y: 460, active: false }, { x: 1350, y: 280, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch6-3: 意志核心 ──────────────────────────────
+    {
+      id: '6-3', name: '意志核心', width: 2400, height: 800,
+      enemies: [
+        { type: 'chronofrog', x: 300, y: 280 },
+        { type: 'echo_shade', x: 450, y: 460 },
+        { type: 'chronofrog', x: 600, y: 320 },
+        { type: 'temporal_rift', x: 750, y: 280 },
+        { type: 'echo_shade', x: 950, y: 460 },
+        { type: 'void_wraith', x: 1150, y: 300 },
+        { type: 'temporal_rift', x: 1350, y: 460 },
+        { type: 'elite_nexus', x: 1750, y: 280 },  // ← Elite #3 (support)
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 180, y: 380, w: 140, h: 20, type: 'platform' },
+        { x: 420, y: 300, w: 130, h: 20, type: 'platform' },
+        { x: 660, y: 350, w: 110, h: 20, type: 'platform' },
+        { x: 880, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 1120, y: 320, w: 130, h: 20, type: 'platform' },
+        { x: 1360, y: 250, w: 160, h: 20, type: 'platform' },
+        { x: 1620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 1850, y: 280, w: 200, h: 20, type: 'platform' },
+        { x: 2100, y: 400, w: 180, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 250, y: 360 }, { x: 490, y: 280 }, { x: 720, y: 330 },
+        { x: 960, y: 260 }, { x: 1195, y: 300 }, { x: 1440, y: 230 },
+        { x: 1700, y: 330 },
+      ],
+      shrines: [{ x: 150, y: 460, active: false }, { x: 1380, y: 230, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch6-4: 核心风暴 ──────────────────────────────
+    {
+      id: '6-4', name: '核心风暴', width: 2400, height: 800,
+      enemies: [
+        { type: 'void_wraith', x: 280, y: 280 },
+        { type: 'echo_shade', x: 350, y: 460 },
+        { type: 'void_wraith', x: 550, y: 320 },
+        { type: 'temporal_rift', x: 700, y: 250 },
+        { type: 'echo_shade', x: 900, y: 460 },
+        { type: 'chronofrog', x: 1050, y: 280 },
+        { type: 'void_wraith', x: 1250, y: 300 },
+        { type: 'temporal_rift', x: 1450, y: 460 },
+        { type: 'echo_shade', x: 1650, y: 280 },
+        { type: 'elite_warden', x: 1900, y: 460 },
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 150, y: 360, w: 130, h: 20, type: 'platform' },
+        { x: 380, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 840, y: 280, w: 140, h: 20, type: 'platform' },
+        { x: 1080, y: 380, w: 110, h: 20, type: 'platform' },
+        { x: 1300, y: 300, w: 160, h: 20, type: 'platform' },
+        { x: 1550, y: 250, w: 180, h: 20, type: 'platform' },
+        { x: 1800, y: 350, w: 140, h: 20, type: 'platform' },
+        { x: 2050, y: 280, w: 200, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 215, y: 340 }, { x: 455, y: 260 }, { x: 690, y: 330 },
+        { x: 920, y: 260 }, { x: 1150, y: 360 }, { x: 1360, y: 280 },
+        { x: 1610, y: 230 }, { x: 1880, y: 330 },
+      ],
+      shrines: [{ x: 150, y: 460, active: false }, { x: 1500, y: 230, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch6-5: 意志顶点 ──────────────────────────────
+    {
+      id: '6-5', name: '意志顶点', width: 2400, height: 800,
+      enemies: [
+        { type: 'temporal_rift', x: 300, y: 280 },
+        { type: 'void_wraith', x: 450, y: 320 },
+        { type: 'echo_shade', x: 600, y: 460 },
+        { type: 'chronofrog', x: 750, y: 280 },
+        { type: 'temporal_rift', x: 900, y: 460 },
+        { type: 'void_wraith', x: 1100, y: 300 },
+        { type: 'echo_shade', x: 1300, y: 460 },
+        { type: 'elite_dissolver', x: 1600, y: 280 },
+        { type: 'elite_nexus', x: 1900, y: 460 },
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 180, y: 380, w: 140, h: 20, type: 'platform' },
+        { x: 420, y: 300, w: 130, h: 20, type: 'platform' },
+        { x: 660, y: 350, w: 110, h: 20, type: 'platform' },
+        { x: 880, y: 280, w: 150, h: 20, type: 'platform' },
+        { x: 1120, y: 320, w: 130, h: 20, type: 'platform' },
+        { x: 1360, y: 250, w: 160, h: 20, type: 'platform' },
+        { x: 1620, y: 350, w: 120, h: 20, type: 'platform' },
+        { x: 1850, y: 280, w: 200, h: 20, type: 'platform' },
+        { x: 2100, y: 400, w: 200, h: 20, type: 'platform' },
+      ],
+      collectibles: [
+        { x: 250, y: 360 }, { x: 490, y: 280 }, { x: 720, y: 330 },
+        { x: 960, y: 260 }, { x: 1195, y: 300 }, { x: 1440, y: 230 },
+        { x: 1700, y: 330 }, { x: 1950, y: 260 },
+      ],
+      shrines: [{ x: 150, y: 460, active: false }, { x: 1650, y: 330, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+    // ── Ch6-6: 核心意志 (BOSS) ───────────────────────
+    {
+      id: '6-6', name: '核心意志', isBoss: true, width: 2400, height: 800,
+      enemies: [
+        { type: 'boss_core_will', x: 2000, y: 380 },
+      ],
+      platforms: [
+        { x: 0, y: 480, w: 2400, h: 40, type: 'ground' },
+        { x: 200, y: 380, w: 150, h: 20, type: 'platform' },
+        { x: 500, y: 300, w: 200, h: 20, type: 'platform' },
+        { x: 800, y: 250, w: 150, h: 20, type: 'platform' },
+        { x: 1100, y: 350, w: 180, h: 20, type: 'platform' },
+        { x: 1400, y: 280, w: 200, h: 20, type: 'platform' },
+        { x: 1700, y: 380, w: 150, h: 20, type: 'platform' },
+      ],
+      collectibles: [],
+      shrines: [{ x: 150, y: 460, active: true }],
+      portal: { x: 2280, y: 380, w: 50, h: 100, active: false },
+    },
+  ],
+};
+
+export const ALL_CHAPTERS = [CHAPTER1, CHAPTER2, CHAPTER3, CHAPTER4, CHAPTER5, CHAPTER6];

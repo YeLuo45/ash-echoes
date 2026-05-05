@@ -8,11 +8,14 @@ export class BossRushMode {
     this.W = game.width;
     this.H = game.height;
 
-    // Boss queue (from enemies.js)
+    // Boss queue (all 6 bosses)
     this.bossList = [
       { type: 'boss', name: '回响领主', chapter: 1 },
       { type: 'boss_abyss_lord', name: '深渊领主', chapter: 2 },
       { type: 'boss_eternal_guardian', name: '永恒守护者', chapter: 3 },
+      { type: 'boss_ruins_king', name: '废墟之王', chapter: 4 },
+      { type: 'boss_base_commander', name: '基地指挥官', chapter: 5 },
+      { type: 'boss_core_will', name: '核心意志', chapter: 6 },
     ];
 
     this.currentBossIndex = 0;

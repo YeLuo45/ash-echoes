@@ -47,11 +47,14 @@ export class Enemy {
     if (this.hitFlash > 0) this.hitFlash -= dt * 5;
     if (this.animTimer > 0) this.animTimer -= dt;
 
-    // Simple AI: chase if player in range
-    // This will be connected to player reference in EnemyManager
-    this._updateAI(dt);
-    this._applyVelocity(dt);
-    this._checkAttack(dt);
+    // Boss special AI (M4 bosses)
+    if (this._bossUpdate) {
+      this._bossUpdate(dt, this._gameRef);
+    } else {
+      this._updateAI(dt);
+      this._applyVelocity(dt);
+      this._checkAttack(dt);
+    }
   }
 
   _updateAI(dt) {
@@ -142,6 +145,11 @@ export class Enemy {
   }
 
   render(ctx) {
+    // Boss phase label
+    if (this._bossRender) {
+      this._bossRender(ctx);
+    }
+
     ctx.save();
 
     // Shadow

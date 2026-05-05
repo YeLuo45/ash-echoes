@@ -1,5 +1,6 @@
 import { Enemy } from './Enemy.js';
 import { ENEMY_TEMPLATES } from './enemies.js';
+import { attachBossBehavior } from './BossBehaviors.js';
 
 export class EnemyManager {
   constructor(projectiles, particles) {
@@ -27,7 +28,17 @@ export class EnemyManager {
     const template = this.enemyTypes[type] || this.enemyTypes['scavenger'];
     const enemy = new Enemy(type, x, y, template, this.projectiles, this.particles);
     this.enemies.push(enemy);
+    // Attach boss behavior if applicable
+    if (this._gameRef && ['boss_ruins_king', 'boss_base_commander', 'boss_core_will'].includes(type)) {
+      enemy._gameRef = this._gameRef;
+      attachBossBehavior(enemy, this._gameRef);
+    }
     return enemy;
+  }
+
+  // Called by GameV2 to pass game reference for boss AI
+  setGameRef(game) {
+    this._gameRef = game;
   }
 
   update(dt) {

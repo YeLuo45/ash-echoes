@@ -24,30 +24,26 @@ export class ChapterSelect {
     ctx.textAlign = 'left';
     ctx.font = '13px Courier New';
 
-    // Chapter 1
-    this._drawChapter(ctx, 100, 120, this.chapters[0], () => onSelect(1));
-    // Chapter 2
-    this._drawChapter(ctx, 340, 120, this.chapters[1], () => onSelect(2));
-    // Chapter 3
-    this._drawChapter(ctx, 580, 120, this.chapters[2], () => onSelect(3));
+    // Row 1: Chapters 1-3
+    this._drawChapter(ctx, 100, 110, this.chapters[0], () => onSelect(1));
+    this._drawChapter(ctx, 340, 110, this.chapters[1], () => onSelect(2));
+    this._drawChapter(ctx, 580, 110, this.chapters[2], () => onSelect(3));
 
-    // Roguelite mode button
+    // Row 2: Chapters 4-6
+    this._drawChapter(ctx, 100, 310, this.chapters[3], () => onSelect(4));
+    this._drawChapter(ctx, 340, 310, this.chapters[4], () => onSelect(5));
+    this._drawChapter(ctx, 580, 310, this.chapters[5], () => onSelect(6));
+
+    // Back button
     ctx.fillStyle = '#1a1a2e';
-    ctx.fillRect(340, 320, 280, 80);
-    ctx.strokeStyle = '#9b59b6';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(340, 320, 280, 80);
-    ctx.fillStyle = '#9b59b6';
-    ctx.font = 'bold 16px Courier New';
-    ctx.textAlign = 'center';
-    ctx.fillText('Roguelite冒险', cw / 2, 355);
-    ctx.font = '12px Courier New';
+    ctx.fillRect(340, 510, 280, 50);
+    ctx.strokeStyle = '#555';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(340, 510, 280, 50);
     ctx.fillStyle = '#888';
-    ctx.fillText('无限关卡 + 永久解锁', cw / 2, 375);
-    ctx.fillText('每日挑战', cw / 2, 392);
-
-    // Click handlers
-    this._handleClick(cw, ch, onSelect);
+    ctx.font = '13px Courier New';
+    ctx.textAlign = 'center';
+    ctx.fillText('[ 返 回 ]', cw / 2, 537);
 
     ctx.textAlign = 'left';
   }
